@@ -25,7 +25,6 @@ build-backend:
 test-backend:
   stage : quality
   script:
-    - ls target/
     - mvn test
 
 package-backend:
