@@ -1,0 +1,35 @@
+stages:
+    - build
+    - quality
+    - deploy
+
+default:
+  image: maven:3.8.6-openjdk-18
+
+cache:
+    paths:
+        - .m2/repository
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+build-backend:
+  stage: build
+  script:
+    - cd backend
+    - mvn clean compile
+
+test-backend:
+  stage : quality
+  script:
+    - cd backend
+    - mvn test
+
+package-backend:
+  stage: deploy
+  script :
+    - cd backend
+    - mvn package
+  artifacts:
+    paths:
+    - backend/target/starter-1.0.0-SNAPSHOT-fat.jar
