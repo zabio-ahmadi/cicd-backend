@@ -16,19 +16,16 @@ variables:
 build-backend:
   stage: build
   script:
-    - cd backend
     - mvn clean compile
 
 test-backend:
   stage : quality
   script:
-    - cd backend
     - mvn test
 
 package-backend:
   stage: deploy
   script :
-    - cd backend
     - mvn package
   artifacts:
     paths:
