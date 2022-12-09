@@ -1,0 +1,20 @@
+stages: 
+  -build
+  -tests
+
+
+
+build:
+  stage: build
+  script: 
+  - echo "BUILD STAGE"
+  - mvn compile
+  - mvn package 
+
+test:
+  stage: test
+    script:
+      - mvn test
+
+
+image: mvn
