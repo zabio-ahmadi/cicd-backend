@@ -1,3 +1,4 @@
+image:maven:3.8.6-openjdk-18 
 stages:
   - build
   - tests
@@ -6,7 +7,7 @@ backend-build:
   stage: build
   script:
     - echo "BUILD STAGE"
-    - mvn compile
+    - mvn clean compile
     - mvn package
 
 backend-test:
