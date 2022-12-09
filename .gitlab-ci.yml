@@ -1,20 +1,16 @@
-stages: 
-  -build
-  -tests
+stages:
+  - build
+  - tests
 
-
-
-build:
+backend-build:
   stage: build
-  script: 
-  - echo "BUILD STAGE"
-  - mvn compile
-  - mvn package 
+  script:
+    - echo "BUILD STAGE"
+    - mvn compile
+    - mvn package
 
-test:
-  stage: test
-    script:
-      - mvn test
-
-
-image: mvn
+backend-test:
+  stage: tests
+  script:
+    - echo "START TEST"
+    - mvn test
