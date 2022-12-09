@@ -2,6 +2,7 @@ image: maven:3.8.6-openjdk-18
 stages:
   - build
   - tests
+  - package
 
 backend-build:
   stage: build
@@ -13,5 +14,11 @@ backend-build:
 backend-test:
   stage: tests
   script:
-    - echo "START TEST"
+    - echo "TEST STAGE"
     - mvn test
+
+backend-package:
+  stage: package
+  script:
+    - echo "PACKAGING STAGE"
+    - mvn package
