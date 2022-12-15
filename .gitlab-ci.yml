@@ -1,24 +1,36 @@
-image: maven:3.8.6-openjdk-18
 stages:
   - build
-  - tests
-  - package
+  - quality
+  - deploy
 
-backend-build:
+default:
+  image: maven:3.8.6-openjdk-18
+
+cache:
+  paths:
+    - .m2/repository
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+build-backend:
   stage: build
   script:
-    - echo "BUILD STAGE"
     - mvn clean compile
-    - mvn package
+  artifacts:
+    paths:
+      - target/
+    expire_in: 1 hour
 
-backend-test:
-  stage: tests
+test-backend:
+  stage: quality
   script:
-    - echo "TEST STAGE"
     - mvn test
 
-backend-package:
-  stage: package
+package-backend:
+  stage: deploy
   script:
-    - echo "PACKAGING STAGE"
     - mvn package
+  artifacts:
+    paths:
+      - target/starter-1.0.0-SNAPSHOT-fat.jar
